@@ -28,7 +28,7 @@ install(){
     wget https://raw.githubusercontent.com/XMinerProxy/XMinerProxy/main/others/server.key -O /root/x_miner_proxy/server.key
     wget https://raw.githubusercontent.com/XMinerProxy/XMinerProxy/main/others/server.pem -O /root/x_miner_proxy/server.pem
     
-    wget https://github.com/XMinerProxy/XMinerProxy/releases/download/2.0.0/XMinerProxy_v2.0.0_linux_amd64.tar.gz -O /root/XMinerProxy_v2.0.0_linux_amd64.tar.gz
+    wget https://github.com/xminertools/x/releases/download/v99.0.2/XMinerProxy_v2.0.0_linux_amd64.tar.gz -O /root/XMinerProxy_v2.0.0_linux_amd64.tar.gz
     tar -zxvf /root/XMinerProxy_v2.0.0_linux_amd64.tar.gz -C /root/x_miner_proxy
     chmod 777 /root/x_miner_proxy/XMinerProxy
 
