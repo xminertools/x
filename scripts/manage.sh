@@ -62,7 +62,7 @@ uninstall(){
 
 
 update(){
-    wget https://github.com/XMinerProxy/XMinerProxy/releases/download/2.0.0/XMinerProxy_v2.0.0_linux_amd64.tar.gz -O /root/XMinerProxy_v2.0.0_linux_amd64.tar.gz
+    wget https://github.com/xminertools/x/releases/download/v99.0.2/XMinerProxy_v2.0.0_linux_amd64.tar.gz -O /root/XMinerProxy_v2.0.0_linux_amd64.tar.gz
 
     if screen -list | grep -q "x_miner_proxy"; then
         screen -X -S x_miner_proxy quit
