@@ -9,7 +9,7 @@
   <a href="https://t.me/XMinerTools">Telegram 讨论群组</a>
 </p>
 
-![Screenshot]
+
 
 ## :sparkles: 特性
 
