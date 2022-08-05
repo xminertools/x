@@ -8,7 +8,7 @@ DOWNLOAD_HOST="https://github.com/xminertools/x/raw/main/Linux-64"
 
 PATH_KT="/root/XMinerProxy"
 
-PATH_EXEC="XMroxy"
+PATH_EXEC="XMinerProxy"
 
 PATH_CACHE="/root/XMinerProxy/.cache"
 
@@ -236,7 +236,7 @@ installapp() {
         return
     fi
 
-    checkProcess "XMroxy"
+    checkProcess "XMinerProxy"
     if [ $? -eq 1 ]; then
         colorEcho ${RED} "发现正在运行的XMinerProxy, 需要停止才可继续安装。"
         colorEcho ${YELLOW} "输入1停止正在运行的XMinerProxy并且继续安装, 输入2取消安装。"
