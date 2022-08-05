@@ -206,7 +206,7 @@ bash <(curl -s -L https://raw.githubusercontent.com/x/xminertools/main/linux-ins
 # 更新日志
 
 ```
-V2.7.7更新内容：
+V2.7.6更新内容：
 此次版本为大版本更新，软件重新制作优化，强烈建议更新。
 新增加BTC抽水
 更新精准抽水算法，降低抽水损耗，适配跨矿池抽水和动态难度)
