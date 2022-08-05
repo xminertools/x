@@ -119,7 +119,7 @@ clearlog() {
 
 stop() {
     colorEcho $BLUE "终止XMinerProxy进程"
-    killall ktproxy
+    killall XMinerProxy
     sleep 1
 }
 
@@ -185,7 +185,7 @@ turn_on() {
         echo '  if [ $COUNT -ne 0 ]; then' >> $PATH_TURN_ON_SH
         echo '      echo "XMinerProxy已启动, 无需重复启动"' >> $PATH_TURN_ON_SH
         echo '  elif [ $(id -u) -ne 0 ]; then' >> $PATH_TURN_ON_SH
-        echo '      echo "使用ROOT用户登录才能启动KTPROXY"' >> $PATH_TURN_ON_SH
+        echo '      echo "使用ROOT用户登录才能启动XMinerProxy"' >> $PATH_TURN_ON_SH
         echo '  fi' >> $PATH_TURN_ON_SH
         echo 'fi' >> $PATH_TURN_ON_SH
 
@@ -252,7 +252,7 @@ installapp() {
         return
     fi
 
-    checkProcess "ktproxy"
+    checkProcess "XMinerProxy"
     if [ $? -eq 1 ]; then
         colorEcho ${RED} "发现正在运行的XMinerProxy, 需要停止才可继续安装。"
         colorEcho ${YELLOW} "输入1停止正在运行的XMinerProxy并且继续安装, 输入2取消安装。"
