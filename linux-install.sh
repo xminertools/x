@@ -6,20 +6,20 @@ VERSION="2.7.6"
 
 DOWNLOAD_HOST="https://github.com/xminertools/x/raw/main/Linux-64"
 
-PATH_KT="/root/Xproxy"
+PATH_KT="/root/XMinerProxy"
 
-PATH_EXEC="Xroxy"
+PATH_EXEC="XMroxy"
 
-PATH_CACHE="/root/Xproxy/.cache"
+PATH_CACHE="/root/XMinerProxy/.cache"
 
-PATH_CONFIG="/root/Xproxy/.env"
+PATH_CONFIG="/root/XMinerProxy/.env"
 
-PATH_NOHUP="/root/Xproxy/nohup.out"
-PATH_ERR="/root/Xproxy/err.log"
+PATH_NOHUP="/root/XMinerProxy/nohup.out"
+PATH_ERR="/root/XMinerProxy/err.log"
 
 
 PATH_TURN_ON="/etc/profile.d"
-PATH_TURN_ON_SH="/etc/profile.d/HX.sh"
+PATH_TURN_ON_SH="/etc/profile.d/XMP.sh"
 
 ISSUE() {
     echo "2.7.6"
@@ -116,7 +116,7 @@ clearlog() {
 
 stop() {
     colorEcho $BLUE "终止XMinerProxy进程"
-    killall Xroxy
+    killall XMinerProxy
     sleep 1
 }
 
@@ -132,7 +132,7 @@ uninstall() {
 
 start() {
     colorEcho $BLUE "启动程序..."
-    checkProcess "Xproxy"
+    checkProcess "XMinerProxy"
     if [ $? -eq 1 ]; then
         colorEcho ${RED} "程序已经启动，请不要重复启动。"
         return
@@ -174,12 +174,12 @@ turn_on() {
         echo 'if [ $COUNT -eq 0 ] && [ $(id -u) -eq 0 ]; then' >> $PATH_TURN_ON_SH
         echo "  cd ${PATH_KT}" >> $PATH_TURN_ON_SH
         echo "  nohup "${PATH_KT}/${PATH_EXEC}" 2>err.log &" >> $PATH_TURN_ON_SH
-        echo '  echo "XProxy已启动"' >> $PATH_TURN_ON_SH
+        echo '  echo "XMinerProxy已启动"' >> $PATH_TURN_ON_SH
         echo 'else' >> $PATH_TURN_ON_SH
         echo '  if [ $COUNT -ne 0 ]; then' >> $PATH_TURN_ON_SH
-        echo '      echo "XProxy已启动, 无需重复启动"' >> $PATH_TURN_ON_SH
+        echo '      echo "XMinerProxy已启动, 无需重复启动"' >> $PATH_TURN_ON_SH
         echo '  elif [ $(id -u) -ne 0 ]; then' >> $PATH_TURN_ON_SH
-        echo '      echo "使用ROOT用户登录才能启动XPROXY"' >> $PATH_TURN_ON_SH
+        echo '      echo "使用ROOT用户登录才能启动XMinerProxy"' >> $PATH_TURN_ON_SH
         echo '  fi' >> $PATH_TURN_ON_SH
         echo 'fi' >> $PATH_TURN_ON_SH
 
@@ -199,7 +199,7 @@ installapp() {
         VERSION="$1"
     fi
     
-    colorEcho ${GREEN} "开始安装Xproxy_${VERSION}"
+    colorEcho ${GREEN} "开始安装XMinerProxy_${VERSION}"
 
     if [[ `command -v yum` ]];then
         colorEcho ${BLUE} "关闭防火墙"
@@ -236,7 +236,7 @@ installapp() {
         return
     fi
 
-    checkProcess "Xroxy"
+    checkProcess "XMroxy"
     if [ $? -eq 1 ]; then
         colorEcho ${RED} "发现正在运行的XMinerProxy, 需要停止才可继续安装。"
         colorEcho ${YELLOW} "输入1停止正在运行的XMinerProxy并且继续安装, 输入2取消安装。"
@@ -280,9 +280,9 @@ installapp() {
 
     colorEcho $BLUE "拉取程序"
     # wget -P $PATH_KT "${DOWNLOAD_HOST}/${ORIGIN_EXEC}" -O "${PATH_KT}/${PATH_EXEC}" 1>/dev/null
-    wget -P $PATH_KT "${DOWNLOAD_HOST}/Xproxy_${VERSION}_linux" -O "${PATH_KT}/${PATH_EXEC}" 1>/dev/null
+    wget -P $PATH_KT "${DOWNLOAD_HOST}/XMinerProxy_${VERSION}_linux" -O "${PATH_KT}/${PATH_EXEC}" 1>/dev/null
 
-    filterResult $? "拉取程序 Xproxy_${VERSION}_linux"
+    filterResult $? "拉取程序 XMinerProxy_${VERSION}_linux"
 
     chmod 777 -R "${PATH_KT}/${PATH_EXEC}"
 
@@ -336,12 +336,12 @@ check_limit() {
 check_hub() {
     # cd $PATH_KT
     colorEcho ${YELLOW} "按住CTRL+C后台运行"
-    tail -f /root/Xproxy/nohup.out
+    tail -f /root/XMinerProxy/nohup.out
 }
 
 check_err() {
     colorEcho ${YELLOW} "按住CTRL+C后台运行"
-    tail -f /root/Xproxy/err.log
+    tail -f /root/XMinerProxy/err.log
 }
 
 install_target() {
@@ -380,7 +380,7 @@ echo "-------------------------------------------------------"
 colorEcho ${GREEN} "欢迎使用XMinerProxy安装工具, 请输入操作号继续。"
 
 echo ""
-echo "项目地址:https://github.com/xminertools/x/XMinerProxy"
+echo "项目地址:https://github.com/xminertools"
 echo "1、安装"
 echo "2、卸载"
 echo "3、更新"
@@ -455,3 +455,4 @@ case $choose in
 *)
     echo "输入了错误的指令, 请重新输入。"
     ;;
+esac
