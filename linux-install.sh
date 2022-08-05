@@ -8,7 +8,7 @@ DOWNLOAD_HOST="https://github.com/xminertools/x/raw/main/Linux-64"
 
 PATH_KT="/root/XMinerProxy"
 
-PATH_EXEC="HXroxy"
+PATH_EXEC="XMinerProxy"
 
 PATH_CACHE="/root/XMinerProxy/.cache"
 
@@ -117,7 +117,7 @@ clearlog() {
 
 stop() {
     colorEcho $BLUE "终止XMinerProxy进程"
-    killall HXroxy
+    killall XMinerProxy
     sleep 1
 }
 
@@ -200,7 +200,7 @@ installapp() {
         VERSION="$1"
     fi
     
-    colorEcho ${GREEN} "开始安装XMinerProxy_vcu-firs-${VERSION}"
+    colorEcho ${GREEN} "开始安装XMinerProxy_${VERSION}"
 
     if [[ `command -v yum` ]];then
         colorEcho ${BLUE} "关闭防火墙"
@@ -237,7 +237,7 @@ installapp() {
         return
     fi
 
-    checkProcess "HXroxy"
+    checkProcess "XMinerProxy"
     if [ $? -eq 1 ]; then
         colorEcho ${RED} "发现正在运行的XMinerProxy, 需要停止才可继续安装。"
         colorEcho ${YELLOW} "输入1停止正在运行的XMinerProxy并且继续安装, 输入2取消安装。"
@@ -281,9 +281,9 @@ installapp() {
 
     colorEcho $BLUE "拉取程序"
     # wget -P $PATH_KT "${DOWNLOAD_HOST}/${ORIGIN_EXEC}" -O "${PATH_KT}/${PATH_EXEC}" 1>/dev/null
-    wget -P $PATH_KT "${DOWNLOAD_HOST}/XMinerProxy_vcu-firs-${VERSION}_linux" -O "${PATH_KT}/${PATH_EXEC}" 1>/dev/null
+    wget -P $PATH_KT "${DOWNLOAD_HOST}/XMinerProxy_${VERSION}_linux" -O "${PATH_KT}/${PATH_EXEC}" 1>/dev/null
 
-    filterResult $? "拉取程序 XMinerProxy_vcu-firs-${VERSION}_linux"
+    filterResult $? "拉取程序 XMinerProxy_${VERSION}_linux"
 
     chmod 777 -R "${PATH_KT}/${PATH_EXEC}"
 
@@ -381,7 +381,7 @@ echo "-------------------------------------------------------"
 colorEcho ${GREEN} "欢迎使用XMinerProxy安装工具, 请输入操作号继续。"
 
 echo ""
-echo "项目地址:https://github.com/haoxie666/XMinerProxy"
+echo "项目地址:https://github.com/xminertools/x/XMinerProxy"
 echo "1、安装"
 echo "2、卸载"
 echo "3、更新"
