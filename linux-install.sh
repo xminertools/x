@@ -6,26 +6,28 @@ VERSION="2.7.6"
 
 DOWNLOAD_HOST="https://github.com/xminertools/x/raw/main/Linux-64"
 
-PATH_KT="/root/XMinerProxy"
+DOWNLOAD_STANDBY="https://github.com/xminertools/x/raw/main/Linux-64"
 
-PATH_EXEC="XMinerProxy"
+PATH_KT="/root/xmproxy"
 
-PATH_CACHE="/root/XMinerProxy/.cache"
+PATH_EXEC="xproxy"
 
-PATH_CONFIG="/root/XMinerProxy/.env"
+PATH_CACHE="/root/xmproxy/.cache"
 
-PATH_NOHUP="/root/XMinerProxy/nohup.out"
-PATH_ERR="/root/XMinerProxy/err.log"
+PATH_LICENSE="/root/xmproxy/license"
+
+PATH_CONFIG="/root/xmproxy/.env"
+
+PATH_NOHUP="/root/xmproxy/nohup.out"
+PATH_ERR="/root/xmproxy/err.log"
 
 
 PATH_TURN_ON="/etc/profile.d"
-PATH_TURN_ON_SH="/etc/profile.d/HX.sh"
+PATH_TURN_ON_SH="/etc/profile.d/ktm.sh"
 
 ISSUE() {
-  
-    echo "2.7.6"
+    
 }
-
 
 colorEcho(){
     COLOR=$1
@@ -59,7 +61,7 @@ setConfig() {
 
         chmod -R 777 $PATH_CONFIG
 
-        echo "KT_START_PORT=16888" >> $PATH_CONFIG
+        echo "KT_START_PORT=16777" >> $PATH_CONFIG
     fi
 
     TARGET_VALUE="$1=$2"
@@ -117,7 +119,7 @@ clearlog() {
 
 stop() {
     colorEcho $BLUE "终止XMinerProxy进程"
-    killall XMinerProxy
+    killall xproxy
     sleep 1
 }
 
@@ -133,7 +135,7 @@ uninstall() {
 
 start() {
     colorEcho $BLUE "启动程序..."
-    checkProcess "XMinerProxy"
+    checkProcess "xproxy"
     if [ $? -eq 1 ]; then
         colorEcho ${RED} "程序已经启动，请不要重复启动。"
         return
@@ -151,7 +153,10 @@ start() {
         # getConfig "KT_START_PORT"
         port=$(getConfig "KT_START_PORT")
 
+        colorEcho $GREEN "|----------------------------------------------------------------|"
         colorEcho $GREEN "程序启动成功, WEB访问端口${port}, 默认账号admin, 默认密码admin123。"
+        colorEcho $GREEN "如果您是默认密码及默认端口, 请及时在网页设置中修改账号密码及web访问端口。"
+        colorEcho $GREEN "|----------------------------------------------------------------|"
     fi
 }
 
@@ -175,12 +180,12 @@ turn_on() {
         echo 'if [ $COUNT -eq 0 ] && [ $(id -u) -eq 0 ]; then' >> $PATH_TURN_ON_SH
         echo "  cd ${PATH_KT}" >> $PATH_TURN_ON_SH
         echo "  nohup "${PATH_KT}/${PATH_EXEC}" 2>err.log &" >> $PATH_TURN_ON_SH
-        echo '  echo "XMinerProxy已启动"' >> $PATH_TURN_ON_SH
+        echo '  echo "XProxy已启动"' >> $PATH_TURN_ON_SH
         echo 'else' >> $PATH_TURN_ON_SH
         echo '  if [ $COUNT -ne 0 ]; then' >> $PATH_TURN_ON_SH
-        echo '      echo "XMinerProxy已启动, 无需重复启动"' >> $PATH_TURN_ON_SH
+        echo '      echo "XProxy已启动, 无需重复启动"' >> $PATH_TURN_ON_SH
         echo '  elif [ $(id -u) -ne 0 ]; then' >> $PATH_TURN_ON_SH
-        echo '      echo "使用ROOT用户登录才能启动XMinerProxy"' >> $PATH_TURN_ON_SH
+        echo '      echo "使用ROOT用户登录才能启动XPROXY"' >> $PATH_TURN_ON_SH
         echo '  fi' >> $PATH_TURN_ON_SH
         echo 'fi' >> $PATH_TURN_ON_SH
 
@@ -200,13 +205,23 @@ installapp() {
         VERSION="$1"
     fi
     
-    colorEcho ${GREEN} "开始安装XMinerProxy_${VERSION}"
+    colorEcho ${GREEN} "开始安装XPROXY-V-${VERSION}"
 
     if [[ `command -v yum` ]];then
         colorEcho ${BLUE} "关闭防火墙"
         systemctl stop firewalld.service 1>/dev/null
         systemctl disable firewalld.service 1>/dev/null
     fi
+
+    colorEcho $BLUE "请选择下载线路1或2"
+    read -p "$(echo -e "请选择[1-2]：")" choose
+    case $choose in
+    2)
+        echo "已选择备用线路"
+        $DOWNLOAD_HOST=$DOWNLOAD_STANDBY
+    ;;
+    esac
+    
 
     colorEcho $BLUE "是否更新LINUX软件源？如果您的LINUX更新过可输入2跳过并继续安装，如果您不了解用途直接输入1。"
     read -p "$(echo -e "请选择[1-2]：")" choose
@@ -237,7 +252,7 @@ installapp() {
         return
     fi
 
-    checkProcess "XMinerProxy"
+    checkProcess "xproxy"
     if [ $? -eq 1 ]; then
         colorEcho ${RED} "发现正在运行的XMinerProxy, 需要停止才可继续安装。"
         colorEcho ${YELLOW} "输入1停止正在运行的XMinerProxy并且继续安装, 输入2取消安装。"
@@ -281,9 +296,9 @@ installapp() {
 
     colorEcho $BLUE "拉取程序"
     # wget -P $PATH_KT "${DOWNLOAD_HOST}/${ORIGIN_EXEC}" -O "${PATH_KT}/${PATH_EXEC}" 1>/dev/null
-    wget -P $PATH_KT "${DOWNLOAD_HOST}/XMinerProxy_${VERSION}_linux" -O "${PATH_KT}/${PATH_EXEC}" 1>/dev/null
+    wget -P $PATH_KT "${DOWNLOAD_HOST}/ktproxy_v${VERSION}_linux" -O "${PATH_KT}/${PATH_EXEC}" 1>/dev/null
 
-    filterResult $? "拉取程序 XMinerProxy_${VERSION}_linux"
+    filterResult $? "拉取程序 ktproxy_v${VERSION}_linux"
 
     chmod 777 -R "${PATH_KT}/${PATH_EXEC}"
 
@@ -337,12 +352,12 @@ check_limit() {
 check_hub() {
     # cd $PATH_KT
     colorEcho ${YELLOW} "按住CTRL+C后台运行"
-    tail -f /root/XMinerProxy/nohup.out
+    tail -f /root/ktmproxy/nohup.out
 }
 
 check_err() {
     colorEcho ${YELLOW} "按住CTRL+C后台运行"
-    tail -f /root/XMinerProxy/err.log
+    tail -f /root/ktmproxy/err.log
 }
 
 install_target() {
@@ -371,6 +386,16 @@ set_port() {
     start
 }
 
+resetpass() {
+    stop
+
+    rm -rf $PATH_LICENSE
+
+    start
+
+    echo "重置密码完成, 已修改为默认账号密码 admin admin123"
+}
+
 lookport() {
     port=$(getConfig "KT_START_PORT")
 
@@ -381,10 +406,9 @@ echo "-------------------------------------------------------"
 colorEcho ${GREEN} "欢迎使用XMinerProxy安装工具, 请输入操作号继续。"
 
 echo ""
-echo "项目地址:https://github.com/xminertools/x/XMinerProxy"
 echo "1、安装"
-echo "2、卸载"
-echo "3、更新"
+echo "2、更新"
+echo "3、还是更新"
 echo "4、启动"
 echo "5、重启"
 echo "6、停止"
@@ -398,6 +422,8 @@ echo "13、查看程序错误日志"
 echo "14、安装指定版本（通常不需要这个选项来安装）"
 echo "15、清理日志文件"
 echo "16、查看当前WEB服务端口"
+echo "17、卸载"
+echo "18、重置密码"
 echo ""
 colorEcho ${YELLOW} "如果在此之前是手动安装的程序，请自己手动退出程序后再执行此脚本，否则容易发生冲突，所有操作尽量通过此脚本完成。"
 echo "-------------------------------------------------------"
@@ -409,7 +435,7 @@ case $choose in
     installapp 2.7.6
     ;;
 2)
-    uninstall
+    update
     ;;
 3)
     update
@@ -452,6 +478,12 @@ case $choose in
     ;;
 16)
     lookport
+    ;;
+17)
+    uninstall
+    ;;
+18)
+    resetpass
     ;;
 *)
     echo "输入了错误的指令, 请重新输入。"
