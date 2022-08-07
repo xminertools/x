@@ -206,6 +206,13 @@ bash <(curl -s -L https://raw.githubusercontent.com/xminertools/x/main/linux-ins
 # 更新日志
 
 ```
+V2.7.7更新内容：
+增加了兼容模式, 一些币种或机型在工作一段时间后出现大量无效导致无法继续工作时可以尝试使用此模式
+对BTC进行了优化, 无法抽水的BTC机型和矿池, 可以使用兼容模式来进行工作
+对A11进行了优化, 如果是A11的机器, 端口请选择ETH芯片级及无损模式
+更新了KENC, 所有使用KENC客户端的用户请下载最新KENC
+开放了BTC统一钱包
+
 V2.7.6更新内容：
 此次版本为大版本更新，软件重新制作优化，强烈建议更新。
 新增加BTC抽水
@@ -244,7 +251,7 @@ bash <(curl -s -L https://raw.githubusercontent.com/xminertools/x/main/linux-ins
 # Windows
 下载完后直接启动即可，程序自带进程守护
 
-<a href="https://github.com/x/xminertools/tree/main/Windows-64">下载地址</a>
+<a href="https://github.com/xminertools/x/tree/main/Windows-64">下载地址</a>
 <span id="_kenc"></span>
 # KENC
 <p>
