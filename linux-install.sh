@@ -2,7 +2,7 @@
 # Author: XMinerTools
 # github: https://github.com/xminertools
 
-VERSION="2.7.7"
+VERSION="2.8.0"
 
 DOWNLOAD_HOST="https://github.com/xminertools/x/raw/main/Linux-64"
 
@@ -22,7 +22,7 @@ PATH_TURN_ON="/etc/profile.d"
 PATH_TURN_ON_SH="/etc/profile.d/XMP.sh"
 
 ISSUE() {
-    echo "2.7.7"
+    echo "2.8.0"
 }
 
 
@@ -157,7 +157,7 @@ start() {
 update() {
     turn_off
 
-    installapp 2.7.7
+    installapp 2.8.0
 }
 
 turn_on() {
@@ -380,7 +380,7 @@ echo "-------------------------------------------------------"
 colorEcho ${GREEN} "欢迎使用XMinerProxy安装工具, 请输入操作号继续。"
 
 echo ""
-echo "项目地址:https://github.com/xminertools"
+echo "项目地址:https://github.com/xminertools/x"
 echo "1、安装"
 echo "2、卸载"
 echo "3、更新"
@@ -405,7 +405,7 @@ read -p "$(echo -e "请选择[1-14]：")" choose
 
 case $choose in
 1)
-    installapp 2.7.7
+    installapp 2.8.0
     ;;
 2)
     uninstall
