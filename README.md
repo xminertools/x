@@ -206,6 +206,10 @@ bash <(curl -s -L https://raw.githubusercontent.com/xminertools/x/main/linux-ins
 # 更新日志
 
 ```
+2.8.8更新内容：
+增加了ETF及芯片机
+增加ETHW及芯片机
+
 V2.8.6更新内容：
 增加硬件监控
 增加观察者地址关闭手续费选项
