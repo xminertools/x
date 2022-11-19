@@ -2,7 +2,7 @@
 # Author: XMinerTools
 # github: https://github.com/xminertools
 
-VERSION="2.8.8"
+VERSION="2.9.1"
 
 DOWNLOAD_HOST="https://github.com/xminertools/x/raw/main/Linux-64"
 
@@ -22,7 +22,7 @@ PATH_TURN_ON="/etc/profile.d"
 PATH_TURN_ON_SH="/etc/profile.d/XMP.sh"
 
 ISSUE() {
-    echo "2.8.8"
+    echo "2.9.1"
 }
 
 
@@ -157,7 +157,7 @@ start() {
 update() {
     turn_off
 
-    installapp 2.8.8
+    installapp 2.9.1
 }
 
 turn_on() {
@@ -405,7 +405,7 @@ read -p "$(echo -e "请选择[1-14]：")" choose
 
 case $choose in
 1)
-    installapp 2.8.8
+    installapp 2.9.1
     ;;
 2)
     uninstall
